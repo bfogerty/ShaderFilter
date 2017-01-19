@@ -355,7 +355,7 @@ void DoFilter(void)
 	// duplicate what's in the inData with the outData
 	SetOutRect(inRect);
 
-	int bytesPerPixel = 4;
+	int bytesPerPixel = gFilterRecord->planes;
 	Renderer renderer(kernel, inRect.right, inRect.bottom, bytesPerPixel);
 	renderer.Render();
 	float *pixels = renderer.GetPixels();
