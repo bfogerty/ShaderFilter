@@ -70,17 +70,17 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\Output\Win\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\Output\Objs\ShaderFilter\Release\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\output\Win\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\output\Objs\ShaderFilter\Release\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\Output\Win\Release64\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\..\..\Output\Objs\ShaderFilter\Release64\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\output\Win\Release64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\output\Objs\ShaderFilter\Release64\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\Output\Win\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\Output\Objs\ShaderFilter\Debug\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\output\Win\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\output\Objs\ShaderFilter\Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\Output\Win\Debug64\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\..\..\Output\Objs\ShaderFilter\Debug64\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\output\Win\Debug64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\output\Objs\ShaderFilter\Debug64\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
@@ -105,7 +105,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\Output\Objs\ShaderFilter\Release/ShaderFilter.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\output\Objs\ShaderFilter\Release/ShaderFilter.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -120,9 +120,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <AssemblerListingLocation>.\..\..\..\Output\Objs\ShaderFilter\Release/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\Output\Objs\ShaderFilter\Release/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\Output\Objs\ShaderFilter\Release/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\..\output\Objs\ShaderFilter\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\..\output\Objs\ShaderFilter\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\output\Objs\ShaderFilter\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
@@ -135,13 +135,13 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\Output\Win\Release\ShaderFilter.8bf</OutputFile>
+      <OutputFile>..\output\Win\Release\ShaderFilter.8bf</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ProgramDatabaseFile>.\..\..\..\Output\Objs\ShaderFilter\Release/ShaderFilter.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\output\Objs\ShaderFilter\Release/ShaderFilter.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\..\..\..\Output\Objs\ShaderFilter\Release/ShaderFilter.lib</ImportLibrary>
+      <ImportLibrary>.\..\output\Objs\ShaderFilter\Release/ShaderFilter.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateMapFile>true</GenerateMapFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -153,7 +153,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\Output\Objs\ShaderFilter\Release64/ShaderFilter.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\output\Objs\ShaderFilter\Release64/ShaderFilter.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -168,9 +168,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <AssemblerListingLocation>.\..\..\..\Output\Objs\ShaderFilter\Release64/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\Output\Objs\ShaderFilter\Release64/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\Output\Objs\ShaderFilter\Release64/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\..\output\Objs\ShaderFilter\Release64/</AssemblerListingLocation>
+      <ObjectFileName>.\..\output\Objs\ShaderFilter\Release64/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\output\Objs\ShaderFilter\Release64/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
@@ -183,13 +183,13 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\Output\Win\Release64\ShaderFilter.8bf</OutputFile>
+      <OutputFile>..\output\Win\Release64\ShaderFilter.8bf</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ProgramDatabaseFile>.\..\..\..\Output\Objs\ShaderFilter\Release64/ShaderFilter.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\output\Objs\ShaderFilter\Release64/ShaderFilter.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\..\..\..\Output\Objs\ShaderFilter\Release64/ShaderFilter.lib</ImportLibrary>
+      <ImportLibrary>.\..\output\Objs\ShaderFilter\Release64/ShaderFilter.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
       <GenerateMapFile>true</GenerateMapFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -201,7 +201,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\Output\Objs\ShaderFilter\Debug/ShaderFilter.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\output\Objs\ShaderFilter\Debug/ShaderFilter.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -214,9 +214,9 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <AssemblerListingLocation>.\..\..\..\Output\Objs\ShaderFilter\Debug/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\Output\Objs\ShaderFilter\Debug/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\Output\Objs\ShaderFilter\Debug/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\..\output\Objs\ShaderFilter\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\..\output\Objs\ShaderFilter\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\output\Objs\ShaderFilter\Debug/</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -228,14 +228,14 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\Output\Win\Debug\ShaderFilter.8bf</OutputFile>
+      <OutputFile>..\output\Win\Debug\ShaderFilter.8bf</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\Output\Objs\ShaderFilter\Debug/ShaderFilter.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\output\Objs\ShaderFilter\Debug/ShaderFilter.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\..\..\..\Output\Objs\ShaderFilter\Debug/ShaderFilter.lib</ImportLibrary>
+      <ImportLibrary>.\..\output\Objs\ShaderFilter\Debug/ShaderFilter.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
@@ -246,7 +246,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\..\..\..\Output\Objs\ShaderFilter\Debug64/ShaderFilter.tlb</TypeLibraryName>
+      <TypeLibraryName>.\..\output\Objs\ShaderFilter\Debug64/ShaderFilter.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -259,9 +259,9 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <AssemblerListingLocation>.\..\..\..\Output\Objs\ShaderFilter\Debug64/</AssemblerListingLocation>
-      <ObjectFileName>.\..\..\..\Output\Objs\ShaderFilter\Debug64/</ObjectFileName>
-      <ProgramDataBaseFileName>.\..\..\..\Output\Objs\ShaderFilter\Debug64/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>.\..\output\Objs\ShaderFilter\Debug64/</AssemblerListingLocation>
+      <ObjectFileName>.\..\output\Objs\ShaderFilter\Debug64/</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\output\Objs\ShaderFilter\Debug64/</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -274,14 +274,14 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\..\Output\Win\Debug64\ShaderFilter.8bf</OutputFile>
+      <OutputFile>..\output\Win\Debug64\ShaderFilter.8bf</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\..\..\..\Output\Objs\ShaderFilter\Debug64/ShaderFilter.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\..\output\Objs\ShaderFilter\Debug64/ShaderFilter.pdb</ProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>.\..\..\..\Output\Objs\ShaderFilter\Debug64/ShaderFilter.lib</ImportLibrary>
+      <ImportLibrary>.\..\output\Objs\ShaderFilter\Debug64/ShaderFilter.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
@@ -449,13 +449,13 @@ del "$(IntDir)%(Filename).rr"
   <ItemGroup>
     <ResourceCompile Include="ShaderFilter.rc">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\..\..\common\resources;..\..\..\Output\Objs\ShaderFilter\Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\common;..\..\..\common\resources;..\output\Objs\ShaderFilter\Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\common;..\..\..\common\resources;..\..\..\Output\Objs\ShaderFilter\Debug64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\common;..\..\..\common\resources;..\output\Objs\ShaderFilter\Debug64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\..\..\common\resources;..\..\..\Output\Objs\ShaderFilter\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\common;..\..\..\common\resources;..\output\Objs\ShaderFilter\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\common;..\..\..\common\resources;..\..\..\Output\Objs\ShaderFilter\Release64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\common;..\..\..\common\resources;..\output\Objs\ShaderFilter\Release64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

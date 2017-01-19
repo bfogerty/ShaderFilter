@@ -334,8 +334,6 @@ void DoFilter(void)
 	int32 rectWidth = filterRect.right - filterRect.left;
 	int32 rectHeight = filterRect.bottom - filterRect.top;
 
-	CreateDissolveBuffer(tileWidth, tileHeight);
-
 	// round up to the nearest horizontal and vertical tile count
 	int32 tilesVert = (tileHeight - 1 + rectHeight) / tileHeight;
 	int32 tilesHoriz = (tileWidth - 1 + rectWidth) / tileWidth;
@@ -357,8 +355,6 @@ void DoFilter(void)
 	{
 		for (int32 horizTile = 0; horizTile < tilesHoriz; horizTile++)
 		{
-			UpdateDissolveBuffer(tileWidth, tileHeight);
-
 			filterRect = GetFilterRect();
 			VRect inRect = GetInRect();
 
@@ -422,7 +418,6 @@ void DoFilter(void)
 			}
 		}
 	}
-	DeleteDissolveBuffer();
 }
 
 //-------------------------------------------------------------------------------
@@ -565,89 +560,6 @@ void InitData(void)
 	gData->proxyHeight = 0;
 	gData->proxyPlaneSize = 0;
 }
-
-//-------------------------------------------------------------------------------
-//
-// CreateDissolveBuffer
-//
-// Updates the dissolve array varaibles in the gData block. This allows us to 
-// process one plane at a time
-//
-// Global Inputs and Outputs:
-//		BufferID gData->dissolveBufferID	ID number of the current buffer in use
-//											if it exists we must delete and get
-//											another one.
-//
-//		Ptr		 gData->dissolveBuffer	Actual array containing the dissolve
-//										from the current settings of
-//										gParams->percent
-//			
-//-------------------------------------------------------------------------------
-void CreateDissolveBuffer(const int32 width, const int32 height)
-{
-	BufferProcs *bufferProcs = gFilterRecord->bufferProcs;
-
-	bufferProcs->allocateProc(width * height, &gData->dissolveBufferID);
-	gData->dissolveBuffer = bufferProcs->lockProc(gData->dissolveBufferID, true);
-}
-
-//-------------------------------------------------------------------------------
-//
-// UpdateDissolveBuffer
-//
-// Updates the dissolve buffer array varaibles in the gData block. This allows us
-// to process one plane at a time
-//
-// Global Inputs and Outputs:
-//		Ptr		 gData->dissolveBuffer	Actual array containing the dissolve
-//										from the current settings of
-//										gParams->percent
-//			
-//-------------------------------------------------------------------------------
-void UpdateDissolveBuffer(const int32 width, const int32 height)
-{
-	if (gData->dissolveBuffer != NULL)
-	{
-		Ptr dissolve = gData->dissolveBuffer;
-		for (int32 x = 0; x < width; x++)
-		{
-			for (int32 y = 0; y < height; y++)
-			{
-				*dissolve = ((unsigned16) rand()) % 100 < gParams->percent;
-				*dissolve = 1;
-				dissolve++;
-			}
-		}
-	}
-}
-
-//-------------------------------------------------------------------------------
-//
-// DeleteDissolveBuffer
-//
-// Deletes the dissolve array varaibles in the gData block.
-//
-// Global Inputs and Outputs:
-//		BufferID gData->dissolveBufferID	ID number of the current buffer in use
-//											if it exists we must delete and get
-//											another one.
-//
-//		Ptr		 gData->dissolveBuffer	Actual array containing the dissolve
-//										from the current settings of
-//										gParams->percent
-//			
-//-------------------------------------------------------------------------------
-void DeleteDissolveBuffer(void)
-{
-	if (gData->dissolveBufferID != NULL)
-	{
-		gFilterRecord->bufferProcs->unlockProc(gData->dissolveBufferID);
-		gFilterRecord->bufferProcs->freeProc(gData->dissolveBufferID);
-		gData->dissolveBufferID = NULL;
-		gData->dissolveBuffer = NULL;
-	}
-}
-
 
 //-------------------------------------------------------------------------------
 //
