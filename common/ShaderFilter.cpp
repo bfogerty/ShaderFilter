@@ -376,7 +376,7 @@ void CopyRenderedImageToPhotoshop(float* srcPixels, int width, int height, int b
 		if (*gResult != noErr) return;
 
 		int pixelIndex = 0;
-		for (int i = plane; i < width * height * bytesPerPixel; i += 4)
+		for (int i = plane; i < width * height * bytesPerPixel; i += bytesPerPixel)
 		{
 			float *fPixel = (float*)gFilterRecord->outData;
 			fPixel[pixelIndex] = srcPixels[i];
