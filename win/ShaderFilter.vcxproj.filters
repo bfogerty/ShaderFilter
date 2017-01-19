@@ -17,6 +17,15 @@
       <UniqueIdentifier>{a50fa58c-d43f-412e-bcb3-4ce43219a4aa}</UniqueIdentifier>
       <Extensions>*.c*;*.h*;</Extensions>
     </Filter>
+    <Filter Include="Source Files\color">
+      <UniqueIdentifier>{d4781199-5b8b-40ca-91c8-38278ca301cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{bac0da28-c029-40c3-bbe0-75f431b544e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\renderer">
+      <UniqueIdentifier>{c3de2ea4-75c2-4f5d-ad41-adb539e1289b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\common\sources\DialogUtilitiesWin.cpp">
@@ -49,6 +58,9 @@
     <ClCompile Include="..\common\ShaderFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\common\renderer\renderer.cpp">
+      <Filter>Source Files\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -59,6 +71,21 @@
     </ClInclude>
     <ClInclude Include="..\common\ShaderFilterScripting.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\color\color.h">
+      <Filter>Source Files\color</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\math\CommonMath.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\math\vec2.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\math\vec3.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\renderer\renderer.h">
+      <Filter>Source Files\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

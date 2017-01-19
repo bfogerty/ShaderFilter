@@ -16,6 +16,15 @@
 #include "Logger.h"
 #include "Timer.h"
 
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <thread>
+#include "renderer/renderer.h"
+#include "math/CommonMath.h"
+#include "math/vec2.h"
+#include "color/color.h"
+
 //-------------------------------------------------------------------------------
 // global variables
 //-------------------------------------------------------------------------------
@@ -51,14 +60,23 @@ void CreateParametersHandle(void);
 void InitParameters(void);
 void CreateDataHandle(void);
 void InitData(void);
-void DissolveRectangle(void* data, 
-					   int32 dataRowBytes, 
-					   void* mask, 
-					   int32 maskRowBytes, 
-					   VRect tileRect, 
-					   uint8 color,
-					   uint16 plane,
-					   int32 depth);
+void CopyRenderedImageToPhotoshop(float* srcPixels, int width, int height, int bytesPerPixel);
+
+void kernel(const unsigned int& x,
+	const unsigned int& y,
+	const unsigned int& width,
+	const unsigned int& height,
+	Color& outputColor)
+{
+	static float aspectRatio = (float)width / height;
+	Vec2 uv = Vec2(float(x) / width, float(y) / height) * 2.0f - 1.0f;
+	uv.X() *= aspectRatio;
+
+	float t = float(pow(abs(1.0f / (((uv.X() * 300.0) + sin(uv.Y() * 5.0f)*50.0f))), 0.75f));
+	t = clamp01(t);
+	outputColor.SetValues(t * 2.0f, t * 4.0f, t * 8.0f, 1.0f);
+	Color::Clamp(outputColor, 0.0f, 1.0f);
+}
 
 //-------------------------------------------------------------------------------
 //
@@ -318,172 +336,52 @@ void DoFinish(void)
 //-------------------------------------------------------------------------------
 void DoFilter(void)
 {
-	// make the random number generated trully random
-	srand((unsigned)time(NULL));
-
-	int32 tileHeight = gFilterRecord->outTileHeight;
-	int32 tileWidth = gFilterRecord->outTileWidth;
-
-	if (tileWidth == 0 || tileHeight == 0)
-	{
-		*gResult = filterBadParameters;
-		return;
-	}
-
-	VRect filterRect = GetFilterRect();
-	int32 rectWidth = filterRect.right - filterRect.left;
-	int32 rectHeight = filterRect.bottom - filterRect.top;
-
-	// round up to the nearest horizontal and vertical tile count
-	int32 tilesVert = (tileHeight - 1 + rectHeight) / tileHeight;
-	int32 tilesHoriz = (tileWidth - 1 + rectWidth) / tileWidth;
-
 	// Fixed numbers are 16.16 values 
 	// the first 16 bits represent the whole number
 	// the last 16 bits represent the fraction
 	gFilterRecord->inputRate = (int32)1 << 16;
 	gFilterRecord->maskRate = (int32)1 << 16;
- 
-	// variables for the progress bar, our plug in is so fast
-	// we probably don't need these
-	int32 progressTotal = tilesVert * tilesHoriz;
-	int32 progressDone = 0;
 
-	// loop through each tile makeing sure we don't go over the bounds
-	// of the rectHeight or rectWidth
-	for (int32 vertTile = 0; vertTile < tilesVert; vertTile++)
-	{
-		for (int32 horizTile = 0; horizTile < tilesHoriz; horizTile++)
-		{
-			filterRect = GetFilterRect();
-			VRect inRect = GetInRect();
+	VRect filterRect = GetFilterRect();
+	VRect inRect = GetInRect();
 
-			inRect.top = vertTile * tileHeight + filterRect.top;
-			inRect.left = horizTile * tileWidth + filterRect.left;
-			inRect.bottom = inRect.top + tileHeight;
-			inRect.right = inRect.left + tileWidth;
+	inRect.top = filterRect.top;
+	inRect.left = filterRect.left;
+	inRect.bottom = filterRect.bottom;
+	inRect.right = filterRect.right;
 
-			if (inRect.bottom > rectHeight)
-				inRect.bottom = rectHeight;
-			if (inRect.right > rectWidth)
-				inRect.right = rectWidth;
+	SetInRect(inRect);
 
-			SetInRect(inRect);
+	// duplicate what's in the inData with the outData
+	SetOutRect(inRect);
 
-			// duplicate what's in the inData with the outData
-			SetOutRect(inRect);
-			
-			// get the maskRect if the user has given us a selection
-			if (gFilterRecord->haveMask)
-			{
-				SetMaskRect(inRect);
-			}
+	int bytesPerPixel = 4;
+	Renderer renderer(kernel, inRect.right, inRect.bottom, bytesPerPixel);
+	renderer.Render();
+	float *pixels = renderer.GetPixels();
 
-			for (int16 plane = 0; plane < gFilterRecord->planes; plane++)
-			{
-				// we want one plane at a time, small memory foot print is good
-				gFilterRecord->outLoPlane = gFilterRecord->inLoPlane = plane;
-				gFilterRecord->outHiPlane = gFilterRecord->inHiPlane = plane;
-	
-				// update the gFilterRecord with our latest request
-				*gResult = gFilterRecord->advanceState();
-				if (*gResult != noErr) return;
-
-				// muck with the pixels in the outData buffer
-				uint8 color = 255;
-				int16 expectedPlanes = CSPlanesFromMode(gFilterRecord->imageMode,
-					                                    0);
-
-				if (plane < expectedPlanes)
-					color = gData->color[plane];
-
-				DissolveRectangle(gFilterRecord->outData,
-								  gFilterRecord->outRowBytes,
-								  gFilterRecord->maskData,
-								  gFilterRecord->maskRowBytes,
-								  GetOutRect(), 
-								  color,
-								  plane, 
-								  gFilterRecord->depth);
-			}
-
-			// uh, update the progress bar
-			gFilterRecord->progressProc(++progressDone, progressTotal);
-			
-			// see if the user is impatient or didn't mean to do that
-			if (gFilterRecord->abortProc())
-			{
-				*gResult = userCanceledErr;
-				return;
-			}
-		}
-	}
+	CopyRenderedImageToPhotoshop(pixels, inRect.right, inRect.bottom, bytesPerPixel);
 }
 
-//-------------------------------------------------------------------------------
-//
-// DissolveRectangle
-//
-// This is our core algorithm for changing pixels randomly to a new color. We
-// have to look at the maskPixel and the ignoreSelection parameter to know if we
-// should or should not modify the pixel. This routine gets a little messy
-// because it handles both 8 bit, 16 bit and 32 bit images.
-//
-//-------------------------------------------------------------------------------
-void DissolveRectangle(void* data, 
-					   int32 dataRowBytes, 
-					   void* mask, 
-					   int32 maskRowBytes, 
-					   VRect tileRect, 
-					   uint8 color,
-					   uint16 plane,
-					   int32 depth)
+void CopyRenderedImageToPhotoshop(float* srcPixels, int width, int height, int bytesPerPixel)
 {
-	uint8* pixel = (uint8*)data;
-	uint16* bigPixel = (uint16*)data;
-	float* fPixel = (float*)data;
-	uint8* maskPixel = (uint8*)mask;
-
-	int32 rectHeight = tileRect.bottom - tileRect.top;
-	int32 rectWidth = tileRect.right - tileRect.left;
-
-	uint16 bigColor = (uint16)(((uint32)color * 1285 + 5) / 10);
-	float  fColor = (float)((float)color / (float)255);
-
-	for(int32 pixelY = 0; pixelY < rectHeight; pixelY++)
+	for (int16 plane = 0; plane < gFilterRecord->planes; plane++)
 	{
-		for(int32 pixelX = 0; pixelX < rectWidth; pixelX++)
+		// we want one plane at a time, small memory foot print is good
+		gFilterRecord->outLoPlane = gFilterRecord->inLoPlane = plane;
+		gFilterRecord->outHiPlane = gFilterRecord->inHiPlane = plane;
+	
+		// update the gFilterRecord with our latest request
+		*gResult = gFilterRecord->advanceState();
+		if (*gResult != noErr) return;
+
+		int pixelIndex = 0;
+		for (int i = plane; i < width * height * bytesPerPixel; i += 4)
 		{
-			bool leaveItAlone = false;
-			if (maskPixel != NULL && !(*maskPixel) && !gParams->ignoreSelection)
-				leaveItAlone = true;
-			
-			if (!leaveItAlone)
-			{
-				if (depth == 32)
-				{
-					*fPixel = 0.0f;
-					if (plane == 0)
-					{
-						*fPixel = 1.0f;
-					}
-				}	
-				else if (depth == 16)
-					*bigPixel = 0;
-				else
-					*pixel = 128;
-			}
-			pixel++;
-			bigPixel++;
-			fPixel++;
-			if (maskPixel != NULL)
-				maskPixel++;
+			float *fPixel = (float*)gFilterRecord->outData;
+			fPixel[pixelIndex] = srcPixels[i];
+			++pixelIndex;
 		}
-		pixel += (dataRowBytes - rectWidth);
-		bigPixel += (dataRowBytes / 2 - rectWidth);
-		fPixel += (dataRowBytes / 4 - rectWidth);
-		if (maskPixel != NULL)
-			maskPixel += (maskRowBytes - rectWidth);
 	}
 }
 

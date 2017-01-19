@@ -290,6 +290,7 @@
     <ClCompile Include="..\..\..\common\sources\Logger.cpp" />
     <ClCompile Include="..\..\..\common\sources\PIUFile.cpp" />
     <ClCompile Include="..\..\..\common\sources\Timer.cpp" />
+    <ClCompile Include="..\common\renderer\renderer.cpp" />
     <ClCompile Include="..\common\ShaderFilter.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -418,6 +419,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\color\color.h" />
+    <ClInclude Include="..\common\math\CommonMath.h" />
+    <ClInclude Include="..\common\math\vec2.h" />
+    <ClInclude Include="..\common\math\vec3.h" />
+    <ClInclude Include="..\common\renderer\renderer.h" />
     <ClInclude Include="..\common\ShaderFilter.h" />
     <ClInclude Include="..\common\ShaderFilterScripting.h" />
     <ClInclude Include="resource.h" />
